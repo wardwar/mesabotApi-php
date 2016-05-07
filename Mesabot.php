@@ -41,7 +41,10 @@ class Mesabot{
     if($data != null && ($method == 'POST' || $method == 'PUT')){
         curl_setopt( $curlInit, CURLOPT_POSTFIELDS, $json_data ); //set json_data pada method post
     }
+    curl_setopt( $curlInit, CURLOPT_TIMEOUT,10);
     curl_setopt( $curlInit, CURLOPT_RETURNTRANSFER, true );
+
+    curl_setopt($curlInit, CURLOPT_SSL_VERIFYPEER,false);
 
     curl_setopt( $curlInit, CURLOPT_HTTPHEADER, array (
         'Content-Type: application/json',
