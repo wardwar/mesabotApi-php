@@ -44,8 +44,6 @@ class Mesabot{
     curl_setopt( $curlInit, CURLOPT_TIMEOUT,10);
     curl_setopt( $curlInit, CURLOPT_RETURNTRANSFER, true );
 
-    curl_setopt($curlInit, CURLOPT_SSL_VERIFYPEER,false);
-
     curl_setopt( $curlInit, CURLOPT_HTTPHEADER, array (
         'Content-Type: application/json',
         'Authorization: Bearer '.$this->token,
@@ -55,19 +53,28 @@ class Mesabot{
       //hasil dari endpoint masuk ke $result
       $result = curl_exec( $curlInit );
 
-      //data diubah ke array
-      $data_array = json_decode( $result,true);
+      if(curl_error($curlInit))
+        {
+            $response = new stdClass();
+            $response->messages = 'error:' . curl_error($curlInit);
+            $this->response = $response;
+            curl_close($curlInit);
+            return $this;
+        }else{
+            //data diubah ke array
+            $data_array = json_decode( $result,true);
 
-      //meminta informasi status ke endpoint api back-end
-      $status = curl_getinfo( $curlInit, CURLINFO_HTTP_CODE );
+            //meminta informasi status ke endpoint api back-end
+            $status = curl_getinfo( $curlInit, CURLINFO_HTTP_CODE );
 
-      $response = new stdClass();
-      $response->status_code = $status;
-      $response->messages = $data_array;
+            $response = new stdClass();
+            $response->status_code = $status;
+            $response->messages = $data_array;
 
-      $this->response = $response;
-      curl_close($curlInit);
-      return $this;
+            $this->response = $response;
+            curl_close($curlInit);
+            return $this;
+        }
     }
 
 

@@ -9,15 +9,15 @@ try {
 
     // 1 phone number
     $data = [
-        'destination' => 'phone number',
+        'destination' => 'phone_number1',
         'text' => 'test mesabot'
     ];
 
     // boradcast
-    // $data = [
-    //     'destination' => ['phone_number1','phone_number2'],
-    //     'text' => 'test'
-    // ];
+    $data = [
+        'destination' => ['phone_number1','phone_number2'],
+        'text' => 'test'
+    ];
 
     $mesabot = new Mesabot();
     $mesabot->sms($data);
