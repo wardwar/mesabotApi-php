@@ -2,14 +2,14 @@
 
 require_once('../Mesabot.php');
 
-define("MESABOT_TOKEN","sZXnH7KYrG9AphGo5s7CncaLTqQ8dzW9j1qZrXWp");
+define("MESABOT_TOKEN","your token");
 
 
 try {
 
     // 1 phone number
     $data = [
-        'destination' => '08992110102',
+        'destination' => 'phone number',
         'text' => 'test mesabot'
     ];
 
